@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroCarbono Master | Agrinho 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="estilo.css">
+
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <div class="logo"><i class="fa-solid fa-leaf"></i> AgroCarbono</div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#tecnologias">Tecnologias</a></li>
+                    <li><a href="#hub">Dashboard</a></li>
+                    <li><a href="#quiz">Quiz</a></li>
+                    <li>
+                        <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon"><i class="fa-solid fa-moon"></i></button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            <div class="hero-content">
+                <h1>A Tecnologia a Favor da Natureza</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">Garantir um meio ambiente ecologicamente equilibrado (Art. 225, CF/88) requer inovação. Calcule emissões, planeje a transição e economize recursos em um só lugar.</p>
+                <a href="#hub" class="btn"><i class="fa-solid fa-microchip"></i> Acessar Sistema</a>
+            </div>
+            <div style="flex: 1; min-width: 300px; text-align: center;">
+                <i class="fa-solid fa-earth-americas" style="font-size: 15rem; color: var(--secondary); opacity: 0.8; filter: drop-shadow(0 0 30px var(--secondary));"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="tecnologias" style="background-color: var(--card-bg);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Bases da Produção Sustentável</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card glass">
+                    <i class="fa-solid fa-tree"></i>
+                    <h3>Sistema ILPF</h3>
+                    <p>A Integração Lavoura-Pecuária-Floresta otimiza o uso da terra. As árvores plantadas sequestram ativamente o CO₂ gerado pela atividade agrícola.</p>
+                </div>
+                <div class="card glass">
+                    <i class="fa-solid fa-seedling"></i>
+                    <h3>Plantio Direto</h3>
+                    <p>Manter a palhada sobre o solo protege contra erosão, preserva a umidade e impede que o carbono estocado na terra vá para a atmosfera.</p>
+                </div>
+                <div class="card glass">
+                    <i class="fa-solid fa-microscope"></i>
+                    <h3>Biotecnologia</h3>
+                    <p>Substituição inteligente de fertilizantes químicos por bioinsumos, reduzindo as emissões de óxido nitroso e barateando o custo final.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hub" class="container">
+        <div class="section-header">
+            <h2>Centro de Inteligência Agro</h2>
+            <p>Selecione a ferramenta desejada no painel abaixo.</p>
+        </div>
+
+        <div>
+            <div class="tabs-header">
+                <button class="tab-btn active" data-target="tab-carbono" onclick="switchTab(event, 'tab-carbono')">
+                    <i class="fa-solid fa-cloud"></i> Emissões (CO₂)
+                </button>
+                <button class="tab-btn" data-target="tab-agua" onclick="switchTab(event, 'tab-agua')">
+                    <i class="fa-solid fa-droplet"></i> Pegada Hídrica
+                </button>
+                <button class="tab-btn" data-target="tab-plan" onclick="switchTab(event, 'tab-plan')">
+                    <i class="fa-solid fa-clipboard-list"></i> Planejador Inteligente
+                </button>
+            </div>
+
+            <div class="glass">
+                <div id="tab-carbono" class="tab-content active">
+                    <h2 style="color: var(--primary); margin-bottom: 30px;"><i class="fa-solid fa-cloud"></i> Calculadora de GEE Avançada</h2>
+                    <div class="grid-2">
+                        <div>
+                            <div class="input-group">
+                                <label>Uso de Diesel (Litros/Ano):</label>
+                                <i class="fa-solid fa-gas-pump"></i>
+                                <input type="number" id="inpDiesel" placeholder="Ex: 5000">
+                            </div>
+                            <div class="input-group">
+                                <label>Rebanho Bovino (Cabeças):</label>
+                                <i class="fa-solid fa-cow"></i>
+                                <input type="number" id="inpGado" placeholder="Ex: 300">
+                            </div>
+                            <button class="btn-calc btn-green" onclick="calcCarbono()">Processar Algoritmo</button>
+                            
+                            <div id="resCarbono" class="resultado-box" style="background: rgba(34, 197, 94, 0.1); border: 1px dashed var(--secondary); display: none;">
+                                <h3>Total: <span id="outCO2" style="color: var(--primary); font-size: 2rem;">0</span> tCO₂e/ano</h3>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Recomendação: Integrar <strong id="outILPF">0</strong> ha de ILPF para neutralizar esse impacto totalmente.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; justify-content: center; min-height: 300px;">
+                            <canvas id="graficoCarbono"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-agua" class="tab-content">
+                    <h2 style="color: var(--accent-blue); margin-bottom: 30px;"><i class="fa-solid fa-droplet"></i> Gestão de Recursos Hídricos</h2>
+                    <div class="grid-2">
+                        <div>
+                            <div class="input-group">
+                                <label>Tipo de Cultivo Principal:</label>
+                                <i class="fa-solid fa-leaf"></i>
+                                <select id="inpCultura">
+                                    <option value="soja">Soja (Grãos Gerais)</option>
+                                    <option value="hortalicas">Hortaliças (Agricultura Familiar)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Área Irrigada (Hectares):</label>
+                                <i class="fa-solid fa-ruler-combined"></i>
+                                <input type="number" id="inpAreaAgua" placeholder="Ex: 15">
+                            </div>
+                            <button class="btn-calc btn-blue" onclick="calcAgua()">Calcular Consumo de Água</button>
+                        </div>
+                        <div class="resultado-box" style="background: rgba(14, 165, 233, 0.1); border: 1px dashed var(--accent-blue);">
+                            <h3 style="color: var(--accent-blue); margin-bottom: 15px;">Volume Estimado</h3>
+                            <div id="resAgua" style="display: none;">
+                                <h1 style="color: var(--accent-blue); font-size: 2.5rem;"><span id="outAgua">0</span> L</h1>
+                                <p style="margin-top: 10px; font-size: 0.95rem;"><strong>Dica de Automação:</strong> Sensores de umidade de solo conectados a microcontroladores podem reduzir esse volume em até 40% irrigando apenas o necessário.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-plan" class="tab-content">
+                    <h2 style="color: var(--warning-orange); margin-bottom: 20px;"><i class="fa-solid fa-map"></i> Roteiro de Adequação Tecnológica</h2>
+                    <p style="margin-bottom: 30px;">Descubra por onde começar sua transição técnica baseada na sua realidade de investimento.</p>
+                    <div class="grid-2">
+                        <div>
+                            <div class="input-group">
+                                <label>Capital Disponível (R$):</label>
+                                <i class="fa-solid fa-wallet"></i>
+                                <input type="number" id="inpOrcamento" placeholder="Ex: 8000">
+                            </div>
+                            <div class="input-group">
+                                <label>Área da Propriedade (Hectares):</label>
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <input type="number" id="inpTamanho" placeholder="Ex: 10">
+                            </div>
+                            <button class="btn-calc btn-orange" onclick="gerarPlano()">Sintetizar Plano de Ação</button>
+                        </div>
+                        <div>
+                            <ul class="plan-list" id="listaPlano">
+                                <li style="text-align: center; background: transparent; border: none; opacity: 0.6;">Aguardando inserção de dados...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" style="background-color: var(--card-bg);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Teste seus Conhecimentos</h2>
+            </div>
+            
+            <div class="glass quiz-container" style="max-width: 800px; margin: 0 auto;">
+                <div id="questionNumber" style="color: var(--secondary); font-weight: bold; margin-bottom: 10px;">Questão 1 de 3</div>
+                <div id="questionText" style="font-size: 1.5rem; font-weight: 600; margin-bottom: 30px; color: var(--primary);">Carregando pergunta...</div>
+                
+                <div id="optionsBox" style="display: grid; gap: 15px;"></div>
+                
+                <div id="scoreText" style="font-size: 2rem; color: var(--primary); font-weight: 800; margin-top: 20px; display: none;"></div>
+                
+                <button class="btn" id="nextBtn" style="margin-top: 25px; display: none;" onclick="nextQuestion()">Próxima <i class="fa-solid fa-arrow-right"></i></button>
+                <button class="btn" id="restartBtn" style="margin-top: 25px; display: none;" onclick="startQuiz()"><i class="fa-solid fa-rotate-right"></i> Refazer</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2><i class="fa-solid fa-code"></i> Desenvolvido para o Concurso Agrinho 2026</h2>
+        <p style="margin: 10px 0; opacity: 0.8;">Tema: Agro forte, futuro sustentável</p>
+        <p style="font-size: 0.8rem; opacity: 0.5;">Os cálculos são aproximações didáticas em base científica para simulação de desenvolvimento de sistemas.</p>
+    </footer>
+
+<script src="Script.js"></script>
+
+</body>
+</html>
